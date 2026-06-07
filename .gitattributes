@@ -1,0 +1,12 @@
+# Default to Unix line endings for all files
+* text=auto eol=lf
+
+# Force binary files to never be line-ending converted
+*.xpl    binary
+*.so     binary
+*.dll    binary
+*.zip    binary
+*.tar.gz binary
+*.xz     binary
+*.png    binary
+*.ttf    binary

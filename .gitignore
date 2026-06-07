@@ -1,0 +1,24 @@
+# Build output
+build/
+
+# Local developer CMake presets (gitignored by design — see README)
+CMakeUserPresets.json
+
+# ----- Linux -----
+*~
+.directory
+.Trash-*
+.nfs*
+
+# ----- Clang / clangd -----
+.cache/
+
+# ----- Vim -----
+*.swp
+*.swo
+*.swn
+.netrwhist
+tags
+
+# ----- VS Code -----
+.vscode/

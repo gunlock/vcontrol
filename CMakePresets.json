@@ -1,0 +1,56 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "linux-x64",
+      "displayName": "Linux x86_64 (Zig)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/docker/linux-x64",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/zig-linux-x64.cmake"
+    },
+    {
+      "name": "windows-x64",
+      "displayName": "Windows x86_64 (Zig)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/docker/windows-x64",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/zig-windows-x64.cmake"
+    },
+    {
+      "name": "mac-x64",
+      "displayName": "macOS x64 (Zig)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/docker/mac-x64",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/zig-macos-x64.cmake"
+    },
+    {
+      "name": "mac-arm64",
+      "displayName": "macOS ARM64 (Zig)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/docker/mac-arm64",
+      "toolchainFile": "${sourceDir}/cmake/toolchains/zig-macos-arm64.cmake"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "linux-x64",
+      "configurePreset": "linux-x64"
+    },
+    {
+      "name": "windows-x64",
+      "configurePreset": "windows-x64"
+    },
+    {
+      "name": "mac-x64",
+      "configurePreset": "mac-x64"
+    },
+    {
+      "name": "mac-arm64",
+      "configurePreset": "mac-arm64"
+    }
+  ]
+}
