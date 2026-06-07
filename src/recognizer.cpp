@@ -1,7 +1,7 @@
 #include "recognizer.h"
 #include "config.h"
 #include "logger.h"
-#include <nlohmann/json.hpp>
+#include <string_view>
 
 Recognizer::Recognizer(const std::string& modelPath, float sampleRate)
     : m_sampleRate(sampleRate) {
@@ -75,13 +75,16 @@ void Recognizer::dispatchResult(const char* result) {
   if (!result || !m_callback) {
     return;
   }
-  auto json = nlohmann::json::parse(result, nullptr, false);
-  if (!json.is_discarded() && json.contains("text")) {
-    std::string text = json["text"].get<std::string>();
-    xplog.info("Recognizer: '{}'", text);
-    if (!text.empty() && text != "[unk]") {
-      m_callback(text);
-    }
+  // Vosk returns {"text": "some phrase"} — extract without a JSON library.
+  std::string_view s(result);
+  auto key   = s.find("\"text\"");  if (key   == s.npos) return;
+  auto colon = s.find(':', key);    if (colon == s.npos) return;
+  auto open  = s.find('"', colon + 1); if (open  == s.npos) return;
+  auto close = s.find('"', open  + 1); if (close == s.npos) return;
+  std::string text(s.substr(open + 1, close - open - 1));
+  xplog.info("Recognizer: '{}'", text);
+  if (!text.empty() && text != "[unk]") {
+    m_callback(text);
   }
 }
 

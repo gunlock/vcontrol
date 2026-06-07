@@ -98,7 +98,6 @@ All dependencies are fetched automatically by CMake via `FetchContent`.
 | vosk-model-small-en-us | 0.15 | ~40 MB offline speech model |
 | miniaudio | 0.11.25 | Header-only audio capture |
 | fmtlib | 12.1.0 | String formatting for the logger |
-| nlohmann/json | 3.11.3 | Vosk result JSON parsing |
 
 ---
 
