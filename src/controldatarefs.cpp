@@ -31,11 +31,11 @@ ControlDataRefs::ControlDataRefs(Recorder& recorder, Recognizer& recognizer)
     this, nullptr
   );
   m_refs[3] = XPLMRegisterDataAccessor(
-    "vcontrol/result", xplmType_Data, /*writable=*/0,
+    "vcontrol/result", xplmType_Data, /*writable=*/1,
     nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
     nullptr, nullptr, nullptr, nullptr,
-    resultRead, nullptr,
-    this, nullptr
+    resultRead, resultWrite,
+    this, this
   );
   m_refs[4] = XPLMRegisterDataAccessor(
     "vcontrol/grammar", xplmType_Data, /*writable=*/1,
@@ -96,6 +96,11 @@ int ControlDataRefs::resultRead(void* refcon, void* outBuffer, int inOffset, int
     }
   }
   return len;
+}
+
+void ControlDataRefs::resultWrite(void* refcon, void* inBuffer, int /*inOffset*/, int inLength) {
+  auto& self = *static_cast<ControlDataRefs*>(refcon);
+  self.m_result.assign(static_cast<const char*>(inBuffer), inLength);
 }
 
 void ControlDataRefs::grammarWrite(void* refcon, void* inBuffer, int /*inOffset*/, int inLength) {

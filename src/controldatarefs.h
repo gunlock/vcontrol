@@ -16,6 +16,7 @@ private:
   static void recognizeWrite(void* refcon, int value);
   static int recordingRead(void* refcon);
   static int resultRead(void* refcon, void* outBuffer, int inOffset, int inMaxBytes);
+  static void resultWrite(void* refcon, void* inBuffer, int inOffset, int inLength);
   static void grammarWrite(void* refcon, void* inBuffer, int inOffset, int inLength);
 
   Recorder& m_recorder;
